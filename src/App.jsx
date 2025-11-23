@@ -13,8 +13,8 @@ const API_CONFIG = {
 };
 
 // ** HARDCODED USER ID สำหรับการทดสอบ **
-const TEST_USER_ID = '110417908127277375939';
-const LIFF_ID = 'YOUR_LIFF_ID_HERE'; 
+// const TEST_USER_ID = '110417908127277375939';
+const LIFF_ID = '2008552785-2QWKPozr'; 
 
 export default function ChatApp() {
   const [messages, setMessages] = useState([]);
