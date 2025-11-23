@@ -100,7 +100,7 @@ export default function ChatApp() {
       let currentUserId = null;
 
       // LIFF Logic Placeholder
-      /* 
+      
       try {
         const liff = (await import('@line/liff')).default;
         await liff.init({ liffId: LIFF_ID });
@@ -109,7 +109,7 @@ export default function ChatApp() {
           currentUserId = profile.userId;
         }
       } catch (e) {}
-      */
+      
 
       if (!currentUserId) {
         currentUserId = TEST_USER_ID; 
