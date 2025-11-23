@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* เพิ่ม style กันเด้งสำหรับมือถือ */
+html, body {
+  overscroll-behavior: none; 
+}
