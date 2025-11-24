@@ -267,7 +267,7 @@ export default function ChatApp() {
             <Bot className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="font-bold text-slate-800 text-sm">ThaiGPT Assistant</h1>
+            <h1 className="font-bold text-slate-800 text-sm">ThaiGPT Chatbot</h1>
             <div className="flex items-center gap-1">
                <span className={`w-2 h-2 rounded-full ${isLoading ? 'bg-yellow-400 animate-pulse' : 'bg-green-500'}`}></span>
                <p className="text-[10px] text-slate-500">
@@ -390,7 +390,6 @@ export default function ChatApp() {
              <p className="text-[10px] text-slate-400">Powered by ThaiGPT</p>
              <div className="text-[9px] px-1.5 py-0.5 bg-slate-100 rounded text-slate-400 font-mono flex gap-1">
                <span>ID: {runId}</span>
-               <span>| User: {userId.slice(0, 4)}...{userId.slice(-4)}</span>
              </div>
           </div>
         </div>
