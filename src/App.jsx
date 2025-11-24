@@ -306,7 +306,7 @@ export default function ChatApp() {
             key={msg.id} 
             className={`flex w-full ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in zoom-in-95 duration-200`}
           >
-            <div className={`flex max-w-[85%] md:max-w-[70%] gap-2 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+            <div className={`flex max-w-[85%] md:max-w-[70%] gap-2 min-w-0 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
               
               {/* Avatar */}
               <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center shadow-sm ${
@@ -316,7 +316,7 @@ export default function ChatApp() {
               </div>
 
               {/* Bubble */}
-              <div className={`py-2.5 px-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+              <div className={`py-2.5 px-3.5 rounded-2xl text-sm leading-relaxed shadow-sm min-w-0 max-w-full overflow-hidden ${
                 msg.sender === 'user' 
                   ? 'bg-blue-600 text-white rounded-tr-none' 
                   : 'bg-white text-slate-700 border border-slate-200 rounded-tl-none'

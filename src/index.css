@@ -10,10 +10,21 @@ html, body {
 /* Markdown Styling */
 .markdown-content {
   @apply prose prose-sm max-w-none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Wrap tables in scrollable container */
+.markdown-content > table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
 }
 
 .markdown-content p {
-  @apply my-1.5;
+  @apply my-1.5 break-words;
 }
 
 .markdown-content p:first-child {
@@ -34,11 +45,11 @@ html, body {
 }
 
 .markdown-user code {
-  @apply bg-blue-700/50 text-blue-100 px-1.5 py-0.5 rounded text-xs;
+  @apply bg-blue-700/50 text-blue-100 px-1.5 py-0.5 rounded text-xs break-words;
 }
 
 .markdown-user pre {
-  @apply bg-blue-700/50 text-blue-100 p-2 rounded-lg overflow-x-auto;
+  @apply bg-blue-700/50 text-blue-100 p-2 rounded-lg overflow-x-auto max-w-full;
 }
 
 .markdown-user pre code {
@@ -66,7 +77,7 @@ html, body {
 }
 
 .markdown-user table {
-  @apply border-collapse my-2;
+  @apply border-collapse my-2 w-full table-auto;
 }
 
 .markdown-user th, .markdown-user td {
@@ -83,11 +94,11 @@ html, body {
 }
 
 .markdown-bot code {
-  @apply bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono;
+  @apply bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono break-words;
 }
 
 .markdown-bot pre {
-  @apply bg-slate-100 text-slate-800 p-2 rounded-lg overflow-x-auto my-2;
+  @apply bg-slate-100 text-slate-800 p-2 rounded-lg overflow-x-auto my-2 max-w-full;
 }
 
 .markdown-bot pre code {
@@ -119,7 +130,7 @@ html, body {
 }
 
 .markdown-bot table {
-  @apply border-collapse my-2;
+  @apply border-collapse my-2 w-full table-auto;
 }
 
 .markdown-bot th, .markdown-bot td {
