@@ -14,7 +14,8 @@ const API_CONFIG = {
   nodeId: import.meta.env.VITE_API_NODE_ID || '',
 };
 
-const LIFF_ID = import.meta.env.VITE_LIFF_ID || ''; 
+const LIFF_ID = import.meta.env.VITE_LIFF_ID || '';
+const APP_TITLE = import.meta.env.VITE_APP_TITLE || 'ThaiGPT Chatbot'; 
 
 export default function ChatApp() {
   const [messages, setMessages] = useState([]);
@@ -157,6 +158,11 @@ export default function ChatApp() {
     scrollToBottom();
   }, [messages, isRestoring]);
 
+  // อัปเดต document title
+  useEffect(() => {
+    document.title = APP_TITLE;
+  }, []);
+
 
   // --- SEND MESSAGE LOGIC ---
 
@@ -267,7 +273,7 @@ export default function ChatApp() {
             <Bot className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="font-bold text-slate-800 text-sm">ThaiGPT Chatbot</h1>
+            <h1 className="font-bold text-slate-800 text-sm">{APP_TITLE}</h1>
             <div className="flex items-center gap-1">
                <span className={`w-2 h-2 rounded-full ${isLoading ? 'bg-yellow-400 animate-pulse' : 'bg-green-500'}`}></span>
                <p className="text-[10px] text-slate-500">
