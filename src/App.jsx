@@ -2,19 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, User, Bot, AlertCircle, MessageSquarePlus } from 'lucide-react';
 
 // --- CONFIGURATION ---
+// ใช้ environment variables จาก .env
 const API_CONFIG = {
-  baseUrl: 'https://cnx.thaigpt.com', 
+  baseUrl: import.meta.env.VITE_API_BASE_URL || 'https://cnx.thaigpt.com',
   endpoints: {
-    send: '/api/v2/send-prompt',
-    history: '/api/v2/get-history'
+    send: '/api/send-prompt', // เรียกผ่าน Vercel serverless function
+    history: '/api/get-history' // เรียกผ่าน Vercel serverless function
   },
-  nodeId: 'b827afd04c41432b8cd7ccbdf9660e49',
-  token: '35654bd6-dada-42d1-88de-e929a09194aa'
+  nodeId: import.meta.env.VITE_API_NODE_ID || '',
 };
 
-// ** HARDCODED USER ID สำหรับการทดสอบ **
-// const TEST_USER_ID = '110417908127277375939';
-const LIFF_ID = '2008552785-2QWKPozr'; 
+const LIFF_ID = import.meta.env.VITE_LIFF_ID || ''; 
 
 export default function ChatApp() {
   const [messages, setMessages] = useState([]);
@@ -45,11 +43,11 @@ export default function ChatApp() {
     if (!currentRunId || !currentUserId) return;
     
     try {
-      const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.history}`, {
+      // เรียกผ่าน Vercel serverless function (ไม่ต้องส่ง token เพราะจัดการที่ server-side)
+      const response = await fetch(API_CONFIG.endpoints.history, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_CONFIG.token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           user_id: currentUserId,
@@ -57,6 +55,10 @@ export default function ChatApp() {
           run_id: currentRunId
         })
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -111,8 +113,15 @@ export default function ChatApp() {
       } catch (e) {}
       
 
+      // ถ้าไม่มี userId จาก LIFF ให้ใช้จาก localStorage หรือสร้างใหม่
       if (!currentUserId) {
-        currentUserId = TEST_USER_ID; 
+        const storedUserId = localStorage.getItem('thaigpt_user_id');
+        if (storedUserId) {
+          currentUserId = storedUserId;
+        } else {
+          // สร้าง temporary user ID สำหรับการทดสอบ (ควรใช้ LIFF ใน production)
+          currentUserId = `temp_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+        }
       }
       
       localStorage.setItem('thaigpt_user_id', currentUserId);
@@ -158,11 +167,11 @@ export default function ChatApp() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.send}`, {
+      // เรียกผ่าน Vercel serverless function (ไม่ต้องส่ง token เพราะจัดการที่ server-side)
+      const response = await fetch(API_CONFIG.endpoints.send, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_CONFIG.token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           prompt: userMessage,
