@@ -6,3 +6,134 @@
 html, body {
   overscroll-behavior: none; 
 }
+
+/* Markdown Styling */
+.markdown-content {
+  @apply prose prose-sm max-w-none;
+}
+
+.markdown-content p {
+  @apply my-1.5;
+}
+
+.markdown-content p:first-child {
+  @apply mt-0;
+}
+
+.markdown-content p:last-child {
+  @apply mb-0;
+}
+
+/* User message markdown (white text) */
+.markdown-user {
+  @apply prose-invert;
+}
+
+.markdown-user p {
+  @apply text-white;
+}
+
+.markdown-user code {
+  @apply bg-blue-700/50 text-blue-100 px-1.5 py-0.5 rounded text-xs;
+}
+
+.markdown-user pre {
+  @apply bg-blue-700/50 text-blue-100 p-2 rounded-lg overflow-x-auto;
+}
+
+.markdown-user pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-user a {
+  @apply text-blue-200 underline;
+}
+
+.markdown-user strong {
+  @apply text-white font-semibold;
+}
+
+.markdown-user ul, .markdown-user ol {
+  @apply my-1.5 pl-4;
+}
+
+.markdown-user li {
+  @apply my-1;
+}
+
+.markdown-user blockquote {
+  @apply border-l-4 border-blue-400 pl-3 italic my-2;
+}
+
+.markdown-user table {
+  @apply border-collapse my-2;
+}
+
+.markdown-user th, .markdown-user td {
+  @apply border border-blue-400 px-2 py-1;
+}
+
+.markdown-user th {
+  @apply bg-blue-700/50 font-semibold;
+}
+
+/* Bot message markdown (dark text) */
+.markdown-bot p {
+  @apply text-slate-700;
+}
+
+.markdown-bot code {
+  @apply bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded text-xs font-mono;
+}
+
+.markdown-bot pre {
+  @apply bg-slate-100 text-slate-800 p-2 rounded-lg overflow-x-auto my-2;
+}
+
+.markdown-bot pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-bot a {
+  @apply text-blue-600 underline;
+}
+
+.markdown-bot a:hover {
+  @apply text-blue-700;
+}
+
+.markdown-bot strong {
+  @apply text-slate-900 font-semibold;
+}
+
+.markdown-bot ul, .markdown-bot ol {
+  @apply my-1.5 pl-4;
+}
+
+.markdown-bot li {
+  @apply my-1;
+}
+
+.markdown-bot blockquote {
+  @apply border-l-4 border-slate-300 pl-3 italic my-2 text-slate-600;
+}
+
+.markdown-bot table {
+  @apply border-collapse my-2;
+}
+
+.markdown-bot th, .markdown-bot td {
+  @apply border border-slate-300 px-2 py-1;
+}
+
+.markdown-bot th {
+  @apply bg-slate-100 font-semibold;
+}
+
+.markdown-bot hr {
+  @apply border-slate-300 my-2;
+}
+
+.markdown-user hr {
+  @apply border-blue-400 my-2;
+}

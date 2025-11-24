@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, User, Bot, AlertCircle, MessageSquarePlus } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // --- CONFIGURATION ---
 // ใช้ environment variables จาก .env
@@ -114,7 +116,9 @@ export default function ChatApp() {
           const profile = await liff.getProfile();
           currentUserId = profile.userId;
         }
-      } catch (e) {}
+      } catch {
+        // LIFF initialization failed, will use fallback user ID
+      }
       
 
       // ถ้าไม่มี userId จาก LIFF ให้ใช้จาก localStorage หรือสร้างใหม่
@@ -312,12 +316,18 @@ export default function ChatApp() {
               </div>
 
               {/* Bubble */}
-              <div className={`py-2.5 px-3.5 rounded-2xl text-sm leading-relaxed shadow-sm whitespace-pre-wrap ${
+              <div className={`py-2.5 px-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
                 msg.sender === 'user' 
                   ? 'bg-blue-600 text-white rounded-tr-none' 
                   : 'bg-white text-slate-700 border border-slate-200 rounded-tl-none'
               }`}>
-                {msg.text ? msg.text.trim() : (
+                {msg.text ? (
+                  <div className={`markdown-content ${msg.sender === 'user' ? 'markdown-user' : 'markdown-bot'}`}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.text.trim()}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
                    <span className="flex gap-1 h-5 items-center px-1">
                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
