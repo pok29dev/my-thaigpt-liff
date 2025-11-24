@@ -16,11 +16,18 @@ html, body {
 }
 
 /* Wrap tables in scrollable container */
-.markdown-content > table {
-  display: block;
+.markdown-content .table-wrapper {
   overflow-x: auto;
   width: 100%;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.5rem 0;
+}
+
+.markdown-content .table-wrapper table {
+  width: 100%;
+  min-width: max-content;
+  table-layout: auto;
 }
 
 .markdown-content p {
@@ -76,8 +83,12 @@ html, body {
   @apply border-l-4 border-blue-400 pl-3 italic my-2;
 }
 
-.markdown-user table {
-  @apply border-collapse my-2 w-full table-auto;
+.markdown-user .table-wrapper {
+  margin: 0.5rem 0;
+}
+
+.markdown-user .table-wrapper table {
+  @apply border-collapse;
 }
 
 .markdown-user th, .markdown-user td {
@@ -129,8 +140,12 @@ html, body {
   @apply border-l-4 border-slate-300 pl-3 italic my-2 text-slate-600;
 }
 
-.markdown-bot table {
-  @apply border-collapse my-2 w-full table-auto;
+.markdown-bot .table-wrapper {
+  margin: 0.5rem 0;
+}
+
+.markdown-bot .table-wrapper table {
+  @apply border-collapse;
 }
 
 .markdown-bot th, .markdown-bot td {

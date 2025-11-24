@@ -323,7 +323,16 @@ export default function ChatApp() {
               }`}>
                 {msg.text ? (
                   <div className={`markdown-content ${msg.sender === 'user' ? 'markdown-user' : 'markdown-bot'}`}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown 
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        table: ({ children, ...props }) => (
+                          <div className="table-wrapper">
+                            <table {...props}>{children}</table>
+                          </div>
+                        )
+                      }}
+                    >
                       {msg.text.trim()}
                     </ReactMarkdown>
                   </div>
