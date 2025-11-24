@@ -32,25 +32,29 @@ export default function ChatApp() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const generateLiffRunId = () => {
+  const generateLiffRunId = (liffUserId) => {
     const randomSuffix = Math.random().toString(36).substring(2, 10);
+    if (liffUserId) {
+      return `${liffUserId}_liff_${randomSuffix}`;
+    }
     return `liff_${randomSuffix}`;
   };
 
   // --- API FUNCTIONS ---
 
-  const fetchHistory = async (currentRunId, currentUserId) => {
-    if (!currentRunId || !currentUserId) return;
+  const fetchHistory = async (currentRunId) => {
+    if (!currentRunId) return;
     
     try {
       // เรียกผ่าน Vercel serverless function (ไม่ต้องส่ง token เพราะจัดการที่ server-side)
+      // ส่ง user_id เป็น '__share__' ตามที่กำหนด
       const response = await fetch(API_CONFIG.endpoints.history, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          user_id: currentUserId,
+          user_id: '__share__',
           node_id: API_CONFIG.nodeId,
           run_id: currentRunId
         })
@@ -131,9 +135,9 @@ export default function ChatApp() {
 
       if (currentRunId) {
         setRunId(currentRunId);
-        await fetchHistory(currentRunId, currentUserId);
+        await fetchHistory(currentRunId);
       } else {
-        const newRunId = generateLiffRunId();
+        const newRunId = generateLiffRunId(currentUserId);
         setRunId(newRunId);
         localStorage.setItem('thaigpt_run_id', newRunId);
         setMessages([{ id: 'welcome', sender: 'bot', text: 'สวัสดีครับ มีอะไรให้ผมช่วยไหมครับ?' }]);
@@ -175,7 +179,7 @@ export default function ChatApp() {
         },
         body: JSON.stringify({
           prompt: userMessage,
-          user_id: userId,
+          user_id: '__share__', // ใช้ fix value '__share__' สำหรับ API
           node_id: API_CONFIG.nodeId,
           run_id: runId,
           stream: 1
@@ -238,7 +242,7 @@ export default function ChatApp() {
   // --- NEW CHAT LOGIC ---
   const handleNewChat = () => {
     if (window.confirm('เริ่มหัวข้อสนทนาใหม่?')) {
-      const newRunId = generateLiffRunId();
+      const newRunId = generateLiffRunId(userId);
       setRunId(newRunId);
       localStorage.setItem('thaigpt_run_id', newRunId);
       
